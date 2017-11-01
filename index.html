@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en" ng-app="MyApp">
+  <head>
+    <title>PUBG Sniping tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/angular.min.js"></script>
+<script src="/js/angular-cookies.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+      body {
+        padding-top: 50px;
+      }
+    </style>
+    <script>
+      $('#myModal').modal('hide');
+      $('#myModalAlert').modal('hide');
+      var app = angular.module('MyApp', ['ngCookies']);
+      app.controller('ChatController', function ($scope, $window, $cookieStore) {
+        var socket = io.connect('http://socket.pubgsnipe.xyz:3000');
+        
+        $scope.messages = [];
+        $scope.nonames = []
+        $scope.roster = [];
+        $scope.name = $cookieStore.get("name");
+        $scope.text = '';
+        $scope.state = 'offline';
+        
+        $scope.optionsDict = new Dict();
+        
+        console.log($cookieStore.get("dict"));
+        
+        if($cookieStore.get("dict")!=null) {
+          try{
+          $cookieStore.get("dict").forEach(function(item, i, arr) {
+            console.log(item);
+            $scope.optionsDict.set(item[0],item[1]);
+          });
+          } catch (err) {
+            console.log(err);
+          }
+        }
+        
+                
+        $scope.time = new Date().getTime();
+        
+        $scope.voicePapech = true;
+        
+        if($cookieStore.get("voicePapech")!=null) {
+          $scope.voicePapech = $cookieStore.get("voicePapech");
+        }
+        
+        $scope.push = false;
+        
+        if($cookieStore.get("push")!=null) {
+          $scope.push = $cookieStore.get("push");
+        }
+        $scope.fastState = false;
+        
+        if($cookieStore.get("fastState")!=null) {
+          $scope.fastState = $cookieStore.get("fastState");
+        }
+                
+        var prevsound = null;
+        
+        var offline = new Howl({
+          src: ['offline.mp3', 'offline.ogg'],
+          preload: true
+        });
+        offline.rate(1.1);
+        var lobby = new Howl({
+          src: ['lobby.mp3', 'lobby.ogg'],
+          preload: true
+        });
+        lobby.rate(1.1);
+        
+        var matching = new Howl({
+          src: ['matching.mp3', 'matching.ogg'],
+          preload: true
+        });
+        matching.rate(1.1);
+        
+        var ingame = new Howl({
+          src: ['ingame.mp3', 'ingame.ogg'],
+          preload: true
+        });
+        
+        ingame.rate(1.1);
+        
+        var otmenil = new Howl({
+          src: ['otmenil.mp3', 'otmenil.ogg'],
+          preload: true
+        });
+        
+        otmenil.rate(1.1);
+        socket.on('connect', function () {
+          $('#myModal').modal('hide');
+          $scope.setName();
+        });
+        
+        socket.on('disconnect', function(){
+          $('#myModal').modal('show');
+        });
+                
+        socket.on('message', function (msg) {
+          $scope.messages.push(msg);
+          $scope.$apply();
+        });
+
+        socket.on('state', function (state) {
+          $scope.state = state.State;
+          $scope.time = state.Time;
+          if($scope.nonames.length>0) {//костыль от рефреша страницы
+            if(Push.Permission.has() && $scope.push) {
+                  Push.create('Hailrake', {
+                    body: $scope.state,
+                    link: '/#',
+                    timeout: 4000,
+                    vibrate: [200, 100, 200, 100, 200, 100, 200]
+                });
+            }
+            if($scope.voicePapech && $scope.state!= 'playing') {
+                if($scope.fastState) {
+                  responsiveVoice.speak($scope.state,"Russian Female",{rate: 1.1});
+                } else {
+                  if(prevsound!=null) {
+                    prevsound.stop();
+                  }
+                  if($scope.state== 'playing' || $scope.state== 'party') {
+                    responsiveVoice.speak("Papech "+$scope.state,"Russian Female",{rate: 1.1});
+                  } else {
+                  prevsound = eval($scope.state);
+                  prevsound.play();
+                  }
+                  //responsiveVoice.speak("Papech "+state,"Russian Female",{rate: 1.1});
+                }
+            }
+           
+              $scope.messages.push(new Date().toLocaleTimeString()+" Hailrake "+$scope.state);
+          }
+          
+          $scope.$apply();
+        });
+        
+        socket.on('noname', function (state) {
+
+            if(Push.Permission.has() && $scope.optionsDict.get(state.name).push) {
+                  Push.create(state.name, {
+                    body: state.state,
+                    link: '/#',
+                    timeout: 4000,
+                    vibrate: [200, 100, 200, 100, 200, 100, 200]
+                });
+            }
+          
+          if($scope.optionsDict.get(state.name).voice) {
+            if($scope.fastState) {
+             responsiveVoice.speak(state.state,"Russian Female",{rate: 1.1});
+            } else {
+             responsiveVoice.speak(state.name+" "+state.state,"Russian Female",{rate: 1.1});
+            }
+          }             
+          $scope.messages.push(new Date().toLocaleTimeString()+" "+state.name+" "+state.state);
+          
+          //$scope.nonames.push(state);
+          $scope.$apply();
+        });
+
+        socket.on('listnonames', function (nonames) {
+          console.log(nonames)
+          $scope.nonames = nonames;
+          nonames.forEach(function(item, i, arr) {
+            if(!$scope.optionsDict.has(item.name)) {
+              $scope.optionsDict.set(item.name,{push:false,voice:true});
+            }
+          });
+          console.log($scope.optionsDict);
+          $scope.$apply();
+        });
+
+        socket.on('roster', function (names) {
+          $scope.roster = names;
+          $scope.$apply();
+        });
+        
+        if(!socket.connected) {
+          $('#myModal').modal('show');
+        }
+
+        $scope.send = function send() {
+
+        };
+
+        $scope.setName = function setName() {
+          socket.emit('identify', $scope.name);
+          $cookieStore.put('name',$scope.name);
+        };
+        
+        
+        $scope.whatClassIsIt= function(state){
+          if(state=="offline")
+            return "danger"
+          else  if(state=="playing")
+            return "warning";
+          else if(state=="lobby" || state=="party")
+            return "info";
+          else
+            return "success";
+        }
+        
+         $scope.getDate= function(time){
+           var date = new Date(time);
+            return date.toLocaleDateString()+' '+date.toLocaleTimeString();
+        }
+         
+        $scope.saveCookies= function(){
+          $cookieStore.put('dict',$scope.optionsDict.items());
+          $cookieStore.put('fastState',$scope.fastState);
+          $cookieStore.put('push',$scope.push);
+          $cookieStore.put('voicePapech',$scope.voicePapech);
+        }
+         
+        $scope.ev = null;
+        $scope.checkPerm = function(event){
+           $scope.ev = event;
+           Push.Permission.request(onPermissionGranted, onPermissionDenied);
+        }
+        
+        function onPermissionGranted() {
+          console.log('Permission has been granted by the user');
+        }
+
+        function onPermissionDenied() {
+          console.log('Permission denied');
+          $('#myModalAlert').modal('show');
+          $scope.ev.preventDefault();
+        }
+        
+        $('.my_tooltip').tooltip({html: true})
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container" ng-controller="ChatController">
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title warning">Нет соединения с сервером, возможно техработы</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="myModalAlert" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title warning">У тебя блокированны оповещения для этого сайта</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 10px" >
+        <div class="col-sm-4">
+          <ul class="nav nav-list well well-sm">
+            <li style="padding-top: 4px; word-break: break-all" ng-repeat="user in roster" ng-bind="user">
+            </li>
+          </ul>
+            <form ng-submit="setName()">
+              <input type="text" class="input-block-level" ng-model="name" ng-model-options="{updateOn: 'blur'}" placeholder="Your Name">
+            </form>
+
+              
+          <p>Чтобы заснайпить игрока нужно нажать поиск игры когда игрок ищет игру (matching)</p>
+          <p><b>Не закрывайте вкладку чтобы получать голосовые оповещения, майнера тут нет</b></p>
+          <p>Статусы меняются так: поиск игры (matching),до загрузки на карту (ingame), затем до конца игры (playing)</p>
+          <p>Предлагайте ники кого хотите заснайпить через поле никнейма, я добавлю если посчитаю нужным)</p>
+          <p>Если кто-то хочет помочь с версткой этого сайта, можете писать в телеграм @indax</p>
+          <a href="http://www.donationalerts.ru/r/indax" target="_blank" class="btn btn-info btn-block btn-lg my_tooltip" data-toggle="tooltip" data-placement="top" title="На хостинг бекенда, пубг если забанят и твикс с хлебом" role="button">Пожертвование</a>
+        </div>
+        <div class="col-sm-8">
+      <div style="font-size: 20px" >
+       Статусы стримеров:
+      </div>
+          <table class="table table-striped table-bordered" style="margin-top: 1px" ng-click="saveCookies()">
+            <thead>
+              <tr>
+                <th class="col-sm-2">Стример</th>
+                <th class="col-sm-2"><div class="my_tooltip" data-toggle="tooltip" data-placement="bottom" title="lobby - игрок в лобби<br />matching - ищет игру<br />ingame - коннектится к карте<br />playing - игрок зашел на карту или играет<br />offline - игрок оффлайн или играет на карте">Статус</div></th>
+                <th class="col-sm-3">Время изменения</th>
+                <th class="col-sm-3">
+                  <label class="my_tooltip" data-toggle="tooltip" data-placement="bottom" title="Push оповещения это оповещения через всплывающее окно в нижней части экрана! Для включения необходимо разрешить сайту оповещения в верхнем левом углу. Если по какой-то причине не работают, нажмите на кружок с восклицательным знаком у адресной строки, и разрешите оповещения.">Опции</label>
+                  <div style="display: inline-block" >
+                      <label class="my_tooltip" data-toggle="tooltip" data-placement="bottom" title="Гуглбаба произносит только статус!<br />Не зачитывая долгий ник.<br />Пинг меньше, но можно запутаться">Быстрое оповещение:
+                      <input type="checkbox" style="float: right" ng-model="fastState">
+                  </div>
+                  </label>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+               <tr class="danger" ng-class="whatClassIsIt(state)" style="font-size: 20px">
+                <td class="col-sm-2" >Hailrake</td>
+                <td class="col-sm-2" ng-bind="state">offline</td>
+                <td class="col-sm-3" ng-bind="getDate(time)"></td>
+                <td class="col-sm-3">Голос: <input type="checkbox" ng-model="voicePapech"> Push: <input type="checkbox" ng-model="push" ng-click="checkPerm($event)"></td>
+
+              </tr>
+              <tr ng-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)">
+                <td class="col-sm-2" ng-bind="msg.name"></td>
+                <td class="col-sm-2" ng-bind="msg.state"></td>
+                <td class="col-sm-3" ng-bind="getDate(msg.time)"></td>
+                <td class="col-sm-3">Голос: <input type="checkbox" ng-model="optionsDict.get(msg.name).voice"> Push: <input type="checkbox" ng-model="optionsDict.get(msg.name).push" ng-click="checkPerm($event)"></td>
+              </tr>
+            </tbody>
+          </table>
+        <div ng-repeat="message in messages">
+            <strong ng-bind="message"></strong>
+            <span></span>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script src="/js/howler.js"></script>
+    <script src="/js/push.min.js"></script>
+    <script src="/js/collections.min.js"></script>
+    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+  </body>
+</html>
