@@ -44,7 +44,7 @@
         $scope.messages = [];
         $scope.nonames = []
         $scope.roster = [];
-        $scope.name = $cookieStore.get("name");
+        $scope.name = '';
         $scope.text = '';
         $scope.state = 'offline';
         
@@ -261,9 +261,8 @@
 
         };
 
-        $scope.setName = function setName() {
+        $scope.sendMessage = function sendMessage() {
           socket.emit('identify', $scope.name);
-          $cookieStore.put('name',$scope.name);
         };
         
         
@@ -346,9 +345,9 @@
             <li style="padding-top: 4px; word-break: break-all" ng-repeat="user in roster" ng-bind="user">
             </li>
           </ul>
-            <form ng-submit="setName()">
+            <form ng-submit="sendMessage()">
               <div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <span class="input-group-addon"><span class="badge" ng-model="roster.length">0</span></span>
               <input type="text" class="form-control" ng-model="name" ng-model-options="{updateOn: 'blur'}" placeholder="Работяга">
               </div>
             </form>
