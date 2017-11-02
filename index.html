@@ -44,7 +44,7 @@
         $scope.messages = [];
         $scope.nonames = []
         $scope.roster = [];
-        $scope.name = '';
+        $scope.name = $cookieStore.get("name");
         $scope.text = '';
         $scope.state = 'offline';
         
@@ -265,7 +265,15 @@
           socket.emit('identify', $scope.name);
         };
         
+        $scope.sendMessage = function sendMessage() {
+          socket.emit('identify', $scope.name);
+        };
         
+        $scope.setName = function setName() {
+          socket.emit('identify', $scope.name);
+          $cookieStore.put('name',$scope.name);
+        };
+
         $scope.whatClassIsIt= function(state){
           if(state=="offline")
             return "danger"
@@ -347,8 +355,9 @@
           </ul>
             <form ng-submit="sendMessage()">
               <div class="input-group">
-              <span class="input-group-addon"><span class="badge my_tooltip" data-toggle="tooltip" data-placement="top" title="Число работяг на сайте">{{ roster.length }}</span></span>
+              <span class="input-group-addon my_tooltip" data-toggle="tooltip" data-placement="top" title="Число работяг на сайте"><span class="badge">{{ roster.length }}</span></span>
               <input type="text" class="form-control" ng-model="name" ng-model-options="{updateOn: 'blur'}" placeholder="Работяга">
+              <span class="input-group-addon" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover"><i class="glyphicon glyphicon-user"></i></span>
               </div>
             </form>
 
