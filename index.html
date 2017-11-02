@@ -157,7 +157,7 @@
         
         socket.on('connect', function () {
           $('#myModal').modal('hide');
-          $scope.setName();
+          $scope.sendMessage();
         });
         
         socket.on('disconnect', function(){
