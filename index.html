@@ -50,6 +50,8 @@
         
         $scope.optionsDict = new Dict();
         
+        $scope.fastSounds = new Dict(); //todo закинуть сюда бы звуки чтобы не evalить
+        
         console.log($cookieStore.get("dict"));
         
         if($cookieStore.get("dict")!=null) {
@@ -115,6 +117,38 @@
         });
         
         otmenil.rate(1.1);
+        
+        var fastoffline = new Howl({
+          src: ['fastsounds/offline.mp3', 'fastsounds/offline.ogg'],
+          preload: true
+        });
+        fastoffline.rate(1.1);
+        
+        var fastlobby = new Howl({
+          src: ['fastsounds/lobby.mp3', 'fastsounds/lobby.ogg'],
+          preload: true
+        });
+        fastlobby.rate(1.1);
+        
+        var fastmatching = new Howl({
+          src: ['fastsounds/matching.mp3', 'fastsounds/matching.ogg'],
+          preload: true
+        });
+        fastmatching.rate(1.1);
+        
+        var fastingame = new Howl({
+          src: ['fastsounds/ingame.mp3', 'fastsounds/ingame.ogg'],
+          preload: true
+        });
+        
+        fastingame.rate(1.1);
+        
+        var fastotmenil = new Howl({
+          src: ['fastsounds/otmenil.mp3', 'fastsounds/otmenil.ogg'],
+          preload: true
+        });
+        fastotmenil.rate(1.1);
+        
         socket.on('connect', function () {
           $('#myModal').modal('hide');
           $scope.setName();
@@ -143,7 +177,11 @@
             }
             if($scope.voicePapech && $scope.state!= 'playing') {
                 if($scope.fastState) {
-                  responsiveVoice.speak($scope.state,"Russian Female",{rate: 1.1});
+                  if(prevsound!=null) {
+                    prevsound.stop();
+                  }
+                  prevsound = eval("fast"+$scope.state);
+                  prevsound.play();
                 } else {
                   if(prevsound!=null) {
                     prevsound.stop();
@@ -177,7 +215,11 @@
           
           if($scope.optionsDict.get(state.name).voice) {
             if($scope.fastState) {
-             responsiveVoice.speak(state.state,"Russian Female",{rate: 1.1});
+                  if(prevsound!=null) {
+                    prevsound.stop();
+                  }
+                  prevsound = eval("fast"+state.state);
+                  prevsound.play();
             } else {
              responsiveVoice.speak(state.name+" "+state.state,"Russian Female",{rate: 1.1});
             }
