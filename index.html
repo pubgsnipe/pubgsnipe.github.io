@@ -48,6 +48,8 @@
         $scope.text = '';
         $scope.state = 'offline';
         
+        $scope.message = '';
+        
         $scope.optionsDict = new Dict();
         
         $scope.fastSounds = new Dict(); //todo закинуть сюда бы звуки чтобы не evalить
@@ -316,7 +318,18 @@
         $('.my_tooltip').tooltip({html: true})
         
         $(document).ready(function () {
-          $("[data-toggle=popover]").popover({ trigger: 'hover', container: 'body'});
+          $("[data-toggle=popover]").popover({ 
+            container: 'body',
+            html : true,
+            content: function() {
+              var content = $(this).attr("data-popover-content");
+              return $(content).children(".popover-body").html();
+            },
+            title: function() {
+              var title = $(this).attr("data-popover-content");
+              return $(title).children(".popover-heading").html();
+            }
+          });
         });
         
       });
@@ -325,6 +338,11 @@
   <body>
     <div class="container" ng-controller="ChatController">
       <div id="myModal" class="modal fade" role="dialog">
+        <!-- Content for Popover #1 -->    
+        <div id="name" class="hidden">
+        <div class="popover-heading">Смена имени</div>    
+        <div class="popover-body"><input class="form-control" type="text" ng-model="name" ng-model-options="{updateOn: 'blur'}" placeholder="Работяга"></div>
+        </div>   
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
@@ -360,8 +378,8 @@
           </ul>
             <form ng-submit="sendMessage()">
               <div class="input-group">
-              <input type="text" class="form-control" ng-model="name" ng-model-options="{updateOn: 'blur'}" placeholder="Работяга">
-              <span class="input-group-btn"><button class="btn btn-secondary" type="button" data-toggle="popover" title="Смена ника" data-content="Test"><i class="glyphicon glyphicon-user"></i></button></span>
+              <input type="text" class="form-control" ng-model="message" ng-model-options="{updateOn: 'blur'}">
+              <span class="input-group-btn"><button class="btn btn-secondary" type="button" data-toggle="popover" data-popover-content="#name><i class="glyphicon glyphicon-user"></i></button></span>
               <span class="input-group-addon my_tooltip" data-toggle="tooltip" data-placement="top" title="Число работяг на сайте"><span class="badge">{{ roster.length }}</span></span>
               </div>
             </form>
