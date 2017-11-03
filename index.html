@@ -264,7 +264,8 @@
 
         $scope.sendMessage = function sendMessage() {
           console.log('message');
-          socket.emit('message', $scope.name);
+          socket.emit('message', $scope.message);
+          socket.emit('identify', $scope.name);
         };
         
         $scope.setName = function setName() {
@@ -343,7 +344,7 @@
       <!-- Content for Popover -->    
       <div id="name" class="hidden">
       <div class="popover-heading">Смена имени</div>
-          <div class="popover-body"><form ng-submit="sendName()"><input class="form-control" type="text" ng-model="name" placeholder="Работяга"></form></div>
+      <div class="popover-body"><form ng-submit="sendName()"><input class="form-control" type="text" ng-model="name" placeholder="Работяга"></form></div>
       </div>   
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
