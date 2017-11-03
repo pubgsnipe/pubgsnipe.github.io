@@ -322,7 +322,7 @@
         
         $(document).ready(function () {
           $("[data-toggle=popover]").popover({ 
-            container: 'container',
+            container: '#myApp',
             html : true,
             content: function() {
               var content = $(this).attr("data-popover-content");
@@ -339,7 +339,7 @@
     </script>
   </head>
   <body>
-    <div class="container" ng-controller="ChatController">
+    <div id="myApp" class="container" ng-controller="ChatController">
       <!-- Content for Popover -->    
       <div id="name" class="hidden">
       <div class="popover-heading">Смена имени</div>
