@@ -271,7 +271,7 @@
         $scope.setName = function setName() {
           console.log('name');
           //$('#namepopover').popover('hide')
-          socket.emit('identify', $scope.name);
+          socket.emit('identify', $scope.message);
           $cookieStore.put('name',$scope.name);
         };
         
