@@ -273,6 +273,11 @@
           socket.emit('identify', $scope.name);
           $cookieStore.put('name',$scope.name);
         };
+        
+        $scope.$watch('name', function(newValue, oldValue) {
+          conslole.log('watch-name');
+          $scope.setName();
+        });
 
         $scope.whatClassIsIt= function(state){
           if(state=="offline")
