@@ -260,14 +260,15 @@
         }
 
         $scope.send = function send() {
-
         };
 
         $scope.sendMessage = function sendMessage() {
-          socket.emit('identify', $scope.name);
+          console.log('message');
+          socket.emit('message', $scope.name);
         };
         
         $scope.setName = function setName() {
+          console.log('name');
           socket.emit('identify', $scope.name);
           $cookieStore.put('name',$scope.name);
         };
