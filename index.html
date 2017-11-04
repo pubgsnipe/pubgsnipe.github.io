@@ -165,11 +165,6 @@
         socket.on('disconnect', function(){
           $('#myModal').modal('show');
         });
-                
-        socket.on('message', function (msg) {
-          $scope.messages.push(msg);
-          $scope.$apply();
-        });
 
         socket.on('state', function (state) {
           $scope.state = state.State;
