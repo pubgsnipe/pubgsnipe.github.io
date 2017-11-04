@@ -406,10 +406,10 @@
           <table class="table table-striped table-bordered" style="margin-top: 1px" ng-click="saveCookies()">
             <thead>
               <tr>
-                <th class="col-sm-2">Стример</th>
-                <th class="col-sm-2"><div class="my_tooltip" data-toggle="tooltip" data-placement="bottom" title="lobby - игрок в лобби<br />matching - ищет игру<br />ingame - коннектится к карте<br />playing - игрок зашел на карту или играет<br />offline - игрок оффлайн или играет на карте">Статус</div></th>
-                <th class="col-sm-3">Время изменения</th>
-                <th class="col-sm-3">
+                <th class="col-md-2">Стример</th>
+                <th class="col-md-2"><div class="my_tooltip" data-toggle="tooltip" data-placement="bottom" title="lobby - игрок в лобби<br />matching - ищет игру<br />ingame - коннектится к карте<br />playing - игрок зашел на карту или играет<br />offline - игрок оффлайн или играет на карте">Статус</div></th>
+                <th class="col-md-3">Время изменения</th>
+                <th class="col-md-3">
                   <label class="my_tooltip" data-toggle="tooltip" data-placement="bottom" title="Push оповещения это оповещения через всплывающее окно в нижней части экрана! Для включения необходимо разрешить сайту оповещения в верхнем левом углу. Если по какой-то причине не работают, нажмите на кружок с восклицательным знаком у адресной строки, и разрешите оповещения.">Опции</label>
                   <div style="display: inline-block" >
                       <label class="my_tooltip" data-toggle="tooltip" data-placement="bottom" title="Гуглбаба произносит только статус!<br />Не зачитывая долгий ник.<br />Пинг меньше, но можно запутаться">Быстрое оповещение:
@@ -421,17 +421,17 @@
             </thead>
             <tbody>
                <tr class="danger" ng-class="whatClassIsIt(state)" style="font-size: 20px">
-                <td class="col-sm-2" >Hailrake</td>
-                <td class="col-sm-2" ng-bind="state">offline</td>
-                <td class="col-sm-3" ng-bind="getDate(time)"></td>
-                <td class="col-sm-3">Голос: <input type="checkbox" ng-model="voicePapech"> Push: <input type="checkbox" ng-model="push" ng-click="checkPerm($event)"></td>
+                <td class="col-md-2" >Hailrake</td>
+                <td class="col-md-2" ng-bind="state">offline</td>
+                <td class="col-md-3" ng-bind="getDate(time)"></td>
+                <td class="col-md-3">Голос: <input type="checkbox" ng-model="voicePapech"> Push: <input type="checkbox" ng-model="push" ng-click="checkPerm($event)"></td>
 
               </tr>
               <tr ng-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)">
-                <td class="col-sm-2" ng-bind="msg.name"></td>
-                <td class="col-sm-2" ng-bind="msg.state"></td>
-                <td class="col-sm-3" ng-bind="getDate(msg.time)"></td>
-                <td class="col-sm-3">Голос: <input type="checkbox" ng-model="optionsDict.get(msg.name).voice"> Push: <input type="checkbox" ng-model="optionsDict.get(msg.name).push" ng-click="checkPerm($event)"></td>
+                <td class="col-md-2" ng-bind="msg.name"></td>
+                <td class="col-md-2" ng-bind="msg.state"></td>
+                <td class="col-md-3" ng-bind="getDate(msg.time)"></td>
+                <td class="col-md-3">Голос: <input type="checkbox" ng-model="optionsDict.get(msg.name).voice"> Push: <input type="checkbox" ng-model="optionsDict.get(msg.name).push" ng-click="checkPerm($event)"></td>
               </tr>
             </tbody>
           </table>
