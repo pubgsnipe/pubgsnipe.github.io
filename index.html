@@ -318,9 +318,7 @@
           $('#myModalAlert').modal('show');
           $scope.ev.preventDefault();
         }
-        
-        $('.my_tooltip').tooltip({container: 'body', html: true})
-        
+               
         $(document).ready(function () {
           $("[data-toggle=popover]").popover({ 
             container: '#myApp',
@@ -337,6 +335,10 @@
         });
         
       });
+      
+       $('.my_tooltip').tooltip({container: '#myApp', html: true})        
+       $(".fixedContent").affix();
+      
     </script>
   </head>
   <body>
@@ -376,10 +378,12 @@
       </div>
       <div class="row" style="padding-top: 10px" >
         <div class="col-sm-4">
-          <ul class="nav nav-list well well-sm">
+          <div class="fixedContent">
+          <ul class="nav nav-list well well-sm" style="overflow-y: scroll; height: 500px">
             <li style="padding-top: 4px; word-break: break-all" ng-repeat="user in roster" ng-bind="user">
             </li>
           </ul>
+          </div>
             <form ng-submit="sendMessage()">
               <div class="input-group">
               <input type="text" class="form-control" ng-model="message" ng-model-options="{updateOn: 'blur'}">
