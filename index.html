@@ -269,6 +269,7 @@
 
         $scope.sendMessage = function sendMessage() {
           socket.emit('message', $scope.message);
+          $scope.message = '';
         };
         
         $scope.setName = function setName() {
