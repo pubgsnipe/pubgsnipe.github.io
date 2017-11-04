@@ -255,6 +255,11 @@
           $scope.$apply();
         });
         
+        socket.on('message', function (message) {
+          $scope.messages.push(message);
+          $scope.$apply();
+        });
+        
         if(!socket.connected) {
           $('#myModal').modal('show');
         }
@@ -380,7 +385,7 @@
         <div class="col-sm-4">
           <div class="fixedContent">
           <ul class="nav nav-list well well-sm" style="overflow-y: scroll; height: 500px">
-            <li style="padding-top: 4px; word-break: break-all" ng-repeat="user in roster" ng-bind="user">
+            <li style="padding-top: 4px; word-break: break-all" ng-repeat="message in messages" ng-bind="message">
             </li>
           </ul>
           </div>
@@ -436,10 +441,6 @@
               </tr>
             </tbody>
           </table>
-        <div ng-repeat="message in messages">
-            <strong ng-bind="message"></strong>
-            <span></span>
-        </div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
