@@ -283,11 +283,6 @@
           $cookieStore.put('name',$scope.name);
         };
         
-        $scope.$watch('name', function(newValue, oldValue) {
-          console.log('watch-name');
-          $scope.setName();
-        });
-
         $scope.whatClassIsIt= function(state){
           if(state=="offline")
             return "danger"
