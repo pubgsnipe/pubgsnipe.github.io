@@ -276,7 +276,7 @@
           console.log('name');
           //$('#namepopover').popover('hide')
           socket.emit('identify', $scope.message);
-          $cookieStore.put('name',$scope.name);
+          $cookieStore.put('name',$scope.message);
         };
         
         $scope.whatClassIsIt= function(state){
