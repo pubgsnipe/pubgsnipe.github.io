@@ -253,6 +253,7 @@
         socket.on('message', function (message) {
           $scope.messages.push(message);
           $scope.$apply();
+          $('#chat').stop().animate({ scrollTop: $(".msg_container_base")[0].scrollHeight}, 1000);
         });
         
         socket.on('messages', function (messages) {
@@ -374,8 +375,8 @@
       <div class="row" style="padding-top: 10px" >
         <div class="col-lg-4">
           <div class="fixedContent">
-          <ul class="nav nav-list well well-sm" style="overflow-y: scroll; height: 500px">
-            <li style="padding-top: 4px; word-break: break-all" ng-repeat="message in messages" ng-bind="message">
+          <ul id ="chat" class="nav nav-list well well-sm" style="overflow-y: scroll; height: 500px">
+            <li style="padding-top: 4px; word-break: normal" ng-repeat="message in messages" ng-bind="message">
             </li>
           </ul>
           </div>
