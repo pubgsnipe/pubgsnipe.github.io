@@ -253,13 +253,13 @@
         socket.on('message', function (message) {
           $scope.messages.push(message);
           $scope.$apply();
-          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 4000);
+          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
         
         socket.on('messages', function (messages) {
           $scope.messages = $scope.messages.concat(messages);
           $scope.$apply();
-          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 4000);
+          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
         
         if(!socket.connected) {
