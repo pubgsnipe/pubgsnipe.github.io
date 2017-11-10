@@ -316,7 +316,22 @@
           console.log('Permission denied');
           $('#myModalAlert').modal('show');
           $scope.ev.preventDefault();
-        }        
+        }
+               
+        $(document).ready(function () {
+          $("[data-toggle=popover]").popover({ 
+            container: '#myApp',
+            html : true,
+            content: function() {
+              var content = $(this).attr("data-popover-content");
+              return $(content).children(".popover-body").html();
+            },
+            title: function() {
+              var title = $(this).attr("data-popover-content");
+              return $(title).children(".popover-heading").html();
+            }
+          });
+        });
        $('.my_tooltip').tooltip({container: '#myApp', html: true})        
       });
             
@@ -324,12 +339,11 @@
   </head>
   <body>
     <div id="myApp" class="container" ng-controller="ChatController">
-      <!--   
+      <!-- Content for Popover -->    
       <div id="name" class="hidden">
       <div class="popover-heading">Смена имени</div>
       <div class="popover-body"><form ng-submit="$parent.sendName()"><input class="form-control" type="text" ng-model="$parent.name" placeholder="Работяга"></form></div>
-      </div>
-      Content for Popover --> 
+      </div>   
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
@@ -369,7 +383,7 @@
             <form ng-submit="sendMessage()">
               <div class="input-group">
               <input type="text" class="form-control" ng-model="message" ng-model-options="{updateOn: 'blur'}">
-              <span class="input-group-btn"><button id="namepopover" class="btn btn-secondary" type="button"><i class="glyphicon glyphicon-user"></i></button></span>
+              <span class="input-group-btn"><button id="namepopover" class="btn btn-secondary" type="button" data-toggle="popover" data-popover-content="#myApp"><i class="glyphicon glyphicon-user"></i></button></span>
               <span class="input-group-addon my_tooltip" data-toggle="tooltip" data-placement="top" title="Число работяг на сайте"><span class="badge">{{ roster.length }}</span></span>
               </div>
             </form>
