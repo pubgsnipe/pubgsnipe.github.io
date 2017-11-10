@@ -333,7 +333,6 @@
           });
         });
        $('.my_tooltip').tooltip({container: '#myApp', html: true})        
-       //$(".fixedContent").affix();
       });
             
     </script>
@@ -384,7 +383,7 @@
             <form ng-submit="sendMessage()">
               <div class="input-group">
               <input type="text" class="form-control" ng-model="message" ng-model-options="{updateOn: 'blur'}">
-              <span class="input-group-btn"><button id="namepopover" class="btn btn-secondary" type="button" data-toggle="popover" data-popover-content="#name"><i class="glyphicon glyphicon-user"></i></button></span>
+              <span class="input-group-btn"><button id="namepopover" class="btn btn-secondary" type="button" data-toggle="popover" data-popover-content="#myApp"><i class="glyphicon glyphicon-user"></i></button></span>
               <span class="input-group-addon my_tooltip" data-toggle="tooltip" data-placement="top" title="Число работяг на сайте"><span class="badge">{{ roster.length }}</span></span>
               </div>
             </form>
