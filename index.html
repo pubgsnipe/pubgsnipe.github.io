@@ -44,7 +44,7 @@
         $scope.messages = [];
         $scope.nonames = []
         $scope.roster = [];
-        $scope.name = $cookieStore.get("name");
+        $scope.name = $cookieStore.get('name');
         $scope.text = '';
         $scope.state = 'offline';
         
@@ -159,7 +159,7 @@
         
         socket.on('connect', function () {
           $('#myModal').modal('hide');
-          $scope.setName();
+          socket.emit('identify', $scope.name);
         });
         
         socket.on('disconnect', function(){
@@ -273,8 +273,6 @@
         };
         
         $scope.setName = function setName() {
-          console.log('name');
-          //$('#namepopover').popover('hide')
           socket.emit('identify', $scope.message);
           $cookieStore.put('name',$scope.message);
         };
