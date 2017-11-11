@@ -252,13 +252,7 @@
         });
         
         socket.on('message', function (message) {
-          //$scope.messages.push(message.replaceColorCodes());
-          //console.log(message.replaceColorCodes().outerHTML);
-          var target = message.replaceColorCodes();
-          var wrap = document.createElement('div');
-          wrap.appendChild(target.cloneNode(true));
-          console.log(wrap.innerHTML);
-          $scope.messages.push(wrap.innerHTML);          
+          $scope.messages.push(message);          
           $scope.$apply();
           $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
@@ -268,6 +262,13 @@
           $scope.$apply();
           $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
+        
+        $scope.formatText = function(text){
+          var target = message.replaceColorCodes();
+          var wrap = document.createElement('div');
+          wrap.appendChild(target.cloneNode(true));
+          return wrap.innerHTML;
+        }
         
         if(!socket.connected) {
           $('#myModal').modal('show');
@@ -384,7 +385,7 @@
         <div class="col-lg-4">
           <div class="fixedContent">
           <ul id ="chat" class="nav nav-list well well-sm" style="overflow-y: scroll; height: 500px">
-            <li style="padding-top: 4px; overflow-wrap: break-word;" ng-repeat="message in messages" ng-bind-html-unsafe="message">
+            <li style="padding-top: 4px; overflow-wrap: break-word;" ng-repeat="message in messages" ng-bind-html-unsafe="formatText(message)">
             </li>
           </ul>
           </div>
