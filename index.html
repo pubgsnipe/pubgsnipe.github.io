@@ -252,6 +252,7 @@
         
         socket.on('message', function (message) {
           $scope.messages.push(message.replaceColorCodes());
+          console.log(message.replaceColorCodes());
           $scope.$apply();
           $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
