@@ -227,9 +227,10 @@
              responsiveVoice.speak(state.name+" "+state.state,"Russian Female",{rate: 1.1});
             }
           }             
-          $scope.messages.push(new Date().toLocaleTimeString()+" "+state.name+" "+state.state);
+          $scope.messages.push("§o§7"+new Date().toLocaleTimeString()+" "+state.name+" "+state.state);
           
           //$scope.nonames.push(state);
+          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
           $scope.$apply();
         });
 
