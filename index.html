@@ -251,7 +251,7 @@
         });
         
         socket.on('message', function (message) {
-          $scope.messages.push(message);
+          $scope.messages.push(message.replaceColorCodes());
           $scope.$apply();
           $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
@@ -440,6 +440,7 @@
     <script src="/js/howler.js"></script>
     <script src="/js/push.min.js"></script>
     <script src="/js/collections.min.js"></script>
+    <script src=""/js/MinecraftColorCodes.min.3.7.js"></script>
     <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
   </body>
 </html>
