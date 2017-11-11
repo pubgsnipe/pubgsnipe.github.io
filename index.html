@@ -378,7 +378,8 @@
         <div class="col-lg-4">
           <div class="fixedContent">
           <ul id ="chat" class="nav nav-list well well-sm" style="overflow-y: scroll; height: 500px">
-            <li style="padding-top: 4px; overflow-wrap: break-word;" ng-repeat="message in messages" ng-bind-html="message">
+            <li style="padding-top: 4px; overflow-wrap: break-word;" ng-repeat="message in messages">
+              {{message}}
             </li>
           </ul>
           </div>
