@@ -264,7 +264,7 @@
         });
         
         $scope.formatText = function(text){
-          var target = message.replaceColorCodes();
+          var target = text.replaceColorCodes();
           var wrap = document.createElement('div');
           wrap.appendChild(target.cloneNode(true));
           return wrap.innerHTML;
