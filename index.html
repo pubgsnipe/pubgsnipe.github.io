@@ -243,7 +243,8 @@
 
         socket.on('roster', function (names) {
           $scope.roster = names;
-          $scope.$apply();
+          $('#a > div > span.chat-enabled > div.top > div > span.topic').text('На сайте: '+names.length);
+          //$scope.$apply();
         });
         
         socket.on('message', function (message) {
