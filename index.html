@@ -435,11 +435,16 @@
               </tr>
             </thead>
             <tbody>
-               <tr class="danger" ng-class="whatClassIsIt(state)" style="font-size: 20px">
+               <tr class="danger" ng-class="whatClassIsIt(state)" data-toggle="collapse" data-target="#hailrake" class="clickable" style="font-size: 20px">
                 <td class="col-md-2" >Hailrake</td>
                 <td class="col-md-2" ng-bind="state">offline</td>
                 <td class="col-md-3" ng-bind="getDate(time)"></td>
                 <td class="col-md-3">Голос: <input type="checkbox" ng-model="voicePapech"> Push: <input type="checkbox" ng-model="push" ng-click="checkPerm($event)"></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                <div id="hailrake" class="collapse">Hidden by default</div>
+                </td>
               </tr>
               <tr g-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)">
                 <td class="col-md-2" ng-bind="msg.name"></td>
