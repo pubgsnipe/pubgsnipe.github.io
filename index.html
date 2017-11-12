@@ -441,7 +441,7 @@
                 <div id="hailrake" class="collapse">Hidden by default</div>
                 </td>
               </tr>
-              <tr g-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)">
+              <tr ng-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)">
                 <td class="col-md-2" ng-bind="msg.name"></td>
                 <td class="col-md-2" ng-bind="msg.state"></td>
                 <td class="col-md-3" ng-bind="getDate(msg.time)"></td>
