@@ -225,7 +225,7 @@
           $scope.messages.push("§o§7"+new Date().toLocaleTimeString()+" "+state.name+" "+state.state);
           
           //$scope.nonames.push(state);
-          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
+          //$('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
           $scope.$apply();
         });
 
@@ -249,13 +249,13 @@
         socket.on('message', function (message) {
           $scope.messages.push(message);          
           $scope.$apply();
-          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
+          //$('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
         
         socket.on('messages', function (messages) {
           $scope.messages = $scope.messages.concat(messages);
           $scope.$apply();
-          $('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
+          //$('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
         
         $scope.formatText = function(text){
@@ -378,7 +378,7 @@
       </div>
       <div class="row justify-content-center" style="padding-top: 10px" >
         <div class="col-md-5">
-          <embed height='700' width='100%' src='https://widgetbot.io/embed/378256471667900417/379377407402180619/1112/?bu=Открыть дискорд&bl=Написать сообщение' />
+          <embed height='700' width='100%' src='https://widgetbot.io/embed/378256471667900417/379377407402180619/0102/?bu=Открыть дискорд&bl=Написать сообщение' />
           <p>Если кто-то хочет помочь с версткой этого сайта, можете писать в телеграм @indax<br>Предлагайте ники кого хотите заснайпить, никто даже рубля не задонатил:С</p>
           <a href="http://www.donationalerts.ru/r/indax" target="_blank" class="btn btn-info btn-block btn-lg my_tooltip" data-toggle="tooltip" data-placement="top" title="На хостинг бекенда, пубг если забанят и твикс с хлебом, плюс можете предложить кого добавить в трекинг :D" role="button">Пожертвование/предложить ник</a>
         </div>
