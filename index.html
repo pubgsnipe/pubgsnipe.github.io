@@ -397,8 +397,10 @@
                 <td class="col-md-3">Голос: <input type="checkbox" ng-model="voicePapech"> Push: <input type="checkbox" ng-model="push" ng-click="checkPerm($event)"></td>
               </tr>
               <tr>
-                <td colspan="4" style="padding:0px">
-                <div id="hailrake" class="collapse well well-sm">Hidden by default</div>
+                <td colspan="4" style="padding:0px; background-color: #1c1e22; border: 1px solid #0c0d0e;">
+                <div id="hailrake" class="collapse">
+                  <li ng-repeat="statelog in statesLog">{{ statelog }}</li>
+                </div>
                 </td>
               </tr>
               <tr ng-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)">
