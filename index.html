@@ -330,8 +330,11 @@
           $('#myModalAlert').modal('show');
           $scope.ev.preventDefault();
         }
-               
-      
+        
+        $('.collapse').on('show.bs.collapse', function () {
+          $('.collapse.in').collapse('hide');
+        });
+                     
        $('.my_tooltip').tooltip({container: '#myApp', html: true})        
        //$(".fixedContent").affix();
       });
