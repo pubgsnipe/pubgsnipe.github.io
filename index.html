@@ -49,6 +49,12 @@
         
         $scope.fastSounds = new Dict(); //todo закинуть сюда бы звуки чтобы не evalить
         
+        $scope.statesLog = [];
+        
+        $scope.statesLog.push("test1");
+        
+        $scope.statesLog.push("test2");
+        
         console.log($cookieStore.get("dict"));
         
         if($cookieStore.get("dict")!=null) {
@@ -392,7 +398,7 @@
               </tr>
               <tr>
                 <td colspan="4" style="padding:0px">
-                <div id="hailrake" class="collapse">Hidden by default</div>
+                <div id="hailrake well well-sm" class="collapse">Hidden by default</div>
                 </td>
               </tr>
               <tr ng-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)">
