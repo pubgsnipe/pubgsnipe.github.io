@@ -52,9 +52,7 @@
         $scope.statesLog = [];
         
         $scope.statesLogDict = new Dict();
-        
-        $scope.statesLog.push("test");
-        
+                
         console.log($cookieStore.get("dict"));
         
         if($cookieStore.get("dict")!=null) {
@@ -404,6 +402,7 @@
                 <tr>
                   <td colspan="4" style="padding:0px; background-color: #1c1e22; border: 1px solid #0c0d0e;">
                   <div id="hailrake" class="collapse">
+                    <p class="h6"><i>История изменений статуса:</i></p>
                     <li ng-repeat="statelog in statesLog">{{ statelog }}</li>
                   </div>
                   </td>
@@ -418,6 +417,7 @@
               <tr ng-repeat-end>
                   <td colspan="4" style="padding:0px; background-color: #1c1e22; border: 1px solid #0c0d0e;">
                   <div ng-attr-id="{{ 'collapse-' + msg.name }}" class="collapse">
+                    <p class="h6"><i>История изменений статуса:</i></p>
                     <li ng-repeat="statelog in statesLogDict.get(msg.name)">{{ statelog }}</li>
                   </div>
                   </td>
