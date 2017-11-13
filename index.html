@@ -180,8 +180,13 @@
             if(Push.Permission.has() && $scope.push) {
                   Push.create('Hailrake', {
                     body: $scope.state,
+                    icon: '/android-icon-144x144.png',
                     link: '/#',
                     timeout: 4000,
+                    onClick: function () {
+                        window.focus();
+                        this.close();
+                    },
                     vibrate: [200, 100, 200, 100, 200, 100, 200]
                 });
             }
@@ -217,8 +222,13 @@
             if(Push.Permission.has() && $scope.optionsDict.get(state.name).push) {
                   Push.create(state.name, {
                     body: state.state,
+                    icon: '/android-icon-144x144.png',
                     link: '/#',
                     timeout: 4000,
+                    onClick: function () {
+                        window.focus();
+                        this.close();
+                    },
                     vibrate: [200, 100, 200, 100, 200, 100, 200]
                 });
             }
@@ -243,7 +253,7 @@
         });
 
         socket.on('listnonames', function (nonames) {
-          console.log(nonames)
+          //console.log(nonames)
           $scope.nonames = nonames;
           nonames.forEach(function(item, i, arr) {
             if(!$scope.optionsDict.has(item.name)) {
@@ -331,7 +341,7 @@
         }
         
         $(document).on('show.bs.collapse', function () {
-          console.log("imhere");
+          //console.log("imhere");
           $('.collapse.in').collapse('hide');
         });
                      
