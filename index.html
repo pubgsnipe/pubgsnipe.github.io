@@ -239,8 +239,6 @@
              $scope.statesLogDict.get(state.name).push(new Date().toLocaleTimeString()+" "+state.name+" "+state.state);
           }
           
-          //$scope.nonames.push(state);
-          //$('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
           $scope.$apply();
         });
 
@@ -275,14 +273,7 @@
           $scope.$apply();
           //$('#chat').stop().animate({ scrollTop: $('#chat')[0].scrollHeight}, 100);
         });
-        
-        $scope.formatText = function(text){
-          var target = text.replaceColorCodes();
-          var wrap = document.createElement('div');
-          wrap.appendChild(target.cloneNode(true));
-          return wrap.innerHTML;
-        }
-        
+                
         if(!socket.connected) {
           $('#myModal').modal('show');
         }
@@ -440,7 +431,6 @@
     <script src="/js/howler.js"></script>
     <script src="/js/push.min.js"></script>
     <script src="/js/collections.min.js"></script>
-    <script src="/js/MinecraftColorCodes.min.3.7.js"></script>
     <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
   </body>
 </html>
