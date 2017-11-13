@@ -401,14 +401,14 @@
                   </td>
                 </tr>
               </tr>
-              <tr ng-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)" data-toggle="collapse" data-target="#msg.name" class="clickable">
+              <tr ng-repeat="msg in nonames" ng-class="whatClassIsIt(msg.state)" data-toggle="collapse" data-target="{{ '#collapse-' + msg.name }}" class="clickable">
                 <td class="col-md-2" ng-bind="msg.name"></td>
                 <td class="col-md-1" ng-bind="msg.state"></td>
                 <td class="col-md-3" ng-bind="getDate(msg.time)"></td>
                 <td class="col-md-3">Голос: <input type="checkbox" ng-model="optionsDict.get(msg.name).voice"> Push: <input type="checkbox" ng-model="optionsDict.get(msg.name).push" ng-click="checkPerm($event)"></td>
                 <tr>
                   <td colspan="4" style="padding:0px; background-color: #1c1e22; border: 1px solid #0c0d0e;">
-                  <div id="msg.name" class="collapse">
+                  <div ng-attr-id="{{ 'collapse-' + msg.name }}" class="collapse">
                     <li ng-repeat="statelog in statesLog">{{ statelog }}</li>
                   </div>
                   </td>
