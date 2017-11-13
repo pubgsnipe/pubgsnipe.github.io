@@ -331,7 +331,7 @@
           $scope.ev.preventDefault();
         }
         
-        $('.collapse').on('show.bs.collapse', function () {
+        $(document).on('show.bs.collapse', function () {
           console.log("imhere");
           $('.collapse.in').collapse('hide');
         });
