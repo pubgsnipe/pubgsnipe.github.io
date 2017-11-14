@@ -61,7 +61,7 @@
         
         $scope.statesLogDict = new Dict();
         
-        $("#myApp > div.row > div.col-lg-4.col-lg-offset-1.col-lg-pull-6 > p.h4.text-center.ng-binding").show();
+        $("#myApp > div.row > div.col-lg-4.col-lg-offset-1.col-lg-pull-6 > p.h4").show();
                 
         console.log($cookieStore.get("dict"));
         
@@ -356,7 +356,7 @@
   <body>
     <div id="myApp" class="container-fluid" ng-controller="ChatController">
       <!-- Content for Popover -->       
-      <div id="myModal" class="modal fade" role="dialog">
+      <div id="myModal" class="modal hide fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
@@ -370,7 +370,7 @@
           </div>
         </div>
       </div>
-      <div id="myModalAlert" class="modal fade" role="dialog">
+      <div id="myModalAlert" class="modal hide fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
