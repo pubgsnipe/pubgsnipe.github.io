@@ -40,8 +40,6 @@
     <script>
       $('#myModal').modal('hide');
       $('#myModalAlert').modal('hide');
-      $('#myModal').show();
-      $('#myModalAlert').show();
       var app = angular.module('MyApp', ['ngCookies']);
       app.controller('ChatController', function ($scope, $window, $cookieStore) {
         var socket = io.connect('http://socket.pubgsnipe.xyz:3000');
@@ -356,7 +354,7 @@
   <body>
     <div id="myApp" class="container-fluid" ng-controller="ChatController">
       <!-- Content for Popover -->       
-      <div id="myModal" class="modal hide fade" role="dialog">
+      <div id="myModal" class="modal ng-cloak fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
@@ -370,7 +368,7 @@
           </div>
         </div>
       </div>
-      <div id="myModalAlert" class="modal hide fade" role="dialog">
+      <div id="myModalAlert" class="modal ng-cloak fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
