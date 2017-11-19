@@ -42,7 +42,7 @@
       $('#myModalAlert').modal('hide');
       var app = angular.module('MyApp', ['ngCookies']);
       app.controller('ChatController', function ($scope, $window, $cookieStore) {
-        var socket = io.connect('http://socket.pubgsnipe.xyz:3000');
+        var socket = io.connect('http://socket.pubgsnipe.xyz:3000', {secure: true} );
         
         $scope.messages = [];
         $scope.nonames = []
