@@ -43,7 +43,7 @@
       var app = angular.module('MyApp', ['ngCookies']);
       app.controller('ChatController', function ($scope, $window, $cookieStore) {
         //var socket = io.connect('https://socket.pubgsnipe.xyz:3000', {secure: true, rejectUnauthorized: false} );
-        var socket = io.connect('http://socket.pubgsnipe.xyz:443');
+        var socket = io.connect('95.213.194.43:443');
 
         $scope.messages = [];
         $scope.nonames = []
